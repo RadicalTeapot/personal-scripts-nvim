@@ -5,6 +5,7 @@ M.default = {
     planing_layout = true,
     to_pandoc = true,
     window_dimmer = true,
+    jump_to_markdown_header = true,
 }
 
 M.setup = function(opts)
@@ -21,6 +22,9 @@ M.setup = function(opts)
     end
     if opts.window_dimmer then
         require('personal-scripts.window-dimmer').setup()
+    end
+    if opts.jump_to_markdown_header then
+        require('personal-scripts.jump-to-markdown-header').setup()
     end
 end
 
