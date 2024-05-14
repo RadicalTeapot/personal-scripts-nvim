@@ -15,24 +15,29 @@ M.get_header_nodes = function(lines, pattern)
     return header_nodes
 end
 
-M.get_title = function(index, line)
-    -- TODO Make index right aligned
-    return index .. "." .. string.gsub(line, "#", " ")
+M.get_title = function(index, line, index_padding)
+    index_padding = index_padding or 1
+    index = string.format("%"..index_padding.."d", index)
+    return index .. ":" .. string.gsub(line, "#", " ")
 end
 
 M.show_header_select_ui = function(line_nodes)
     local array = {}
+    local index_padding = #tostring(#line_nodes) -- Get the length of the string representing the count
     for i, line_node in ipairs(line_nodes) do
-        local title = M.get_title(i, line_node.line)
+        local title = M.get_title(i, line_node.line, index_padding)
         table.insert(array, M.get_line_node(title, line_node.line_num))
     end
 
     vim.ui.select(array, {
+        prompt="Select header to jump to",
         format_item = function(line_node)
             return line_node.line
         end,
     }, function(choice)
-        vim.api.nvim_win_set_cursor(0, { choice.line_num, 0 })
+        if choice then -- Choice is nil if the user cancels the dialog
+            vim.api.nvim_win_set_cursor(0, { choice.line_num, 0 })
+        end
     end)
 end
 
