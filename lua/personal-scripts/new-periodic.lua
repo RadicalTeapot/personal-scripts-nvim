@@ -100,7 +100,7 @@ end
 
 M.get_weekly_dates = function(offset)
     assert(type(offset) == "number", "Offset value should be a number")
-    offset = math.floor(offset)
+    offset = math.floor(offset) * 7 -- Convert from week number to day number
 
     -- Strip away time hours info (i.e. only keep date info)
     local now_table = os.date("*t", os.time())
