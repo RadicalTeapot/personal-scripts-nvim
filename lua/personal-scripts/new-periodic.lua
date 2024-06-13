@@ -136,6 +136,9 @@ M.get_weekly_content = function(dates)
         ) .. "|Next week]] >",
         "",
         "## To tackle this week",
+        "",
+        "- [ ] Fill time sheets",
+        "- [ ] Review [[00 Inbox/GTD|GTD]]",
     }
 end
 
